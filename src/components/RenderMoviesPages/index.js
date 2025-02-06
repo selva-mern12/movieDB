@@ -58,7 +58,7 @@ class RenderMoviesPage extends Component {
       }
       this.setState({
         popularMoviesList: updatedData.results,
-        totalPages: updatedData.totalPages,
+        totalPages: updatedData.totalPages < 500 ? updatedData.totalPages : 500,
         popularPageStatus: pageStatus.success,
       })
     } else {
@@ -68,23 +68,22 @@ class RenderMoviesPage extends Component {
 
   updatePageNum = ({action, num}) => {
     const {selectedPage, totalPages} = this.state
-    if (action === 'increase') {
-      if (selectedPage < totalPages) {
-        this.setState(
-          prevState => ({selectedPage: prevState.selectedPage + 1}),
-          this.getPopularMovies,
-        )
+
+    console.log(totalPages)
+    this.setState(prevState => {
+      let newPage = prevState.selectedPage
+
+      if (action === 'increase') {
+        newPage =
+          selectedPage < totalPages ? prevState.selectedPage + 1 : selectedPage
+      } else if (action === 'decrease') {
+        newPage = selectedPage > 1 ? prevState.selectedPage - 1 : selectedPage
+      } else if (num) {
+        newPage = Math.min(Math.max(num, 1), totalPages) // Ensures num stays within valid range
       }
-    } else if (action === 'decrease') {
-      if (selectedPage > 1) {
-        this.setState(
-          prevState => ({selectedPage: prevState.selectedPage - 1}),
-          this.getPopularMovies,
-        )
-      }
-    } else if (num) {
-      this.setState({selectedPage: num}, this.getPopularMovies)
-    }
+
+      return {selectedPage: newPage}
+    }, this.getPopularMovies)
   }
 
   changeApi = userSearch => {

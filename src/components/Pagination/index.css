@@ -60,3 +60,13 @@
   border: #ffffff 1px solid;
   color: gold;
 }
+.button {
+  all: unset;
+  outline: none;
+  border: none;
+  background: none;
+  padding: 0;
+  margin: 0;
+  font: inherit;
+  cursor: pointer;
+}

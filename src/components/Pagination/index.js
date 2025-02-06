@@ -34,7 +34,9 @@ const Pagination = ({totalPage, selectedPage, updatePageNum}) => {
           className="page-numbers"
           onClick={() => updatePageNum({action: 'decrease'})}
         >
-          &#8593;
+          <button className="button" type="button" data-testid="prev">
+            Prev
+          </button>
         </li>
         {startingPages.map(num => (
           <li
@@ -46,11 +48,15 @@ const Pagination = ({totalPage, selectedPage, updatePageNum}) => {
             }
             onClick={() => updatePageNum({num})}
           >
-            {num}
+            <button className="button" type="button" data-testid={num}>
+              {num}
+            </button>
           </li>
         ))}
         <li className="page-numbers" onMouseEnter={() => setIsPageNum(true)}>
-          ...
+          <button className="button" type="button" data-testid="more-pages">
+            ...
+          </button>
         </li>
         {endingPages.map(num => (
           <li
@@ -62,14 +68,18 @@ const Pagination = ({totalPage, selectedPage, updatePageNum}) => {
             }
             onClick={() => updatePageNum({num})}
           >
-            {num}
+            <button className="button" type="button" data-testid={num}>
+              {num}
+            </button>
           </li>
         ))}
         <li
           className="page-numbers"
           onClick={() => updatePageNum({action: 'increase'})}
         >
-          &#8595;
+          <button className="button" type="button" data-testid="next">
+            Next
+          </button>
         </li>
       </ul>
       {isPageNum && (
@@ -84,7 +94,9 @@ const Pagination = ({totalPage, selectedPage, updatePageNum}) => {
               }
               onClick={() => updatePageNum({num})}
             >
-              {num}
+              <button className="button" type="button" data-testid={num}>
+                {num}
+              </button>
             </li>
           ))}
         </ul>
